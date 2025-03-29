@@ -134,5 +134,5 @@ class PropertyRead(PropertyBase):
     id: uuid.UUID
 
 class Property(PropertyBase, table=True):
-    id: uuid.UUID
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     

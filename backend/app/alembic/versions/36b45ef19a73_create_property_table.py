@@ -8,7 +8,7 @@ Create Date: 2025-03-29 09:13:05.333863
 from alembic import op
 import sqlalchemy as sa
 import sqlmodel.sql.sqltypes
-
+import sqlalchemy.dialects.postgresql as postgresql
 
 # revision identifiers, used by Alembic.
 revision = '36b45ef19a73'
@@ -20,7 +20,7 @@ depends_on = None
 def upgrade():
     op.create_table(
         "property",
-        sa.Column("id", sqlmodel.sql.sqltypes.GUID, primary_key=True, nullable=False),
+        sa.Column("id", postgresql.UUID(as_uuid=True), primary_key=True, nullable=False),
         sa.Column("address", sa.String(length=255), nullable=False),
         sa.Column("city", sa.String(length=255), nullable=False),
         sa.Column("state", sa.String(length=255), nullable=False),
