@@ -11,11 +11,11 @@
             "module": "uvicorn",
             "args": [
                 "app.main:app",
-                "--reload"
+                "--reload-dir", "${workspaceFolder}/backend/app" // Specify the directory to watch
             ],
             "cwd": "${workspaceFolder}/backend",
             "jinja": true,
-            "envFile": "${workspaceFolder}/.env",
+            "envFile": "${workspaceFolder}/.env"
         },
         {
             "type": "chrome",
@@ -23,6 +23,6 @@
             "name": "Debug Frontend: Launch Chrome against http://localhost:5173",
             "url": "http://localhost:5173",
             "webRoot": "${workspaceFolder}/frontend"
-        },
+        }
     ]
 }
