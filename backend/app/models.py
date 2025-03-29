@@ -111,3 +111,28 @@ class TokenPayload(SQLModel):
 class NewPassword(SQLModel):
     token: str
     new_password: str = Field(min_length=8, max_length=40)
+
+class PropertyBase(SQLModel):
+    address: str = Field(min_length=1, max_length=255)
+    city: str = Field(min_length=1, max_length=255)
+    state: str = Field(min_length=1, max_length=255)
+    zip_code: str = Field(min_length=1, max_length=20)
+    # The following fields are optional and can be None
+    bedrooms: int | None = None  # Number of bedrooms
+    bathrooms: float | None = None  # Number of bathrooms
+    sqft: int | None = None  # Square footage of the property
+    lot_size: float | None = None  # Lot size in acres
+    year_built: int | None = None  # Year the property was built
+    list_price: float | None = None  # Listing price of the property
+    high_school: str | None = None  # Name of the high school district
+
+class PropertyCreate(PropertyBase):
+    pass
+
+
+class PropertyRead(PropertyBase):
+    id: uuid.UUID
+
+class Property(PropertyBase, table=True):
+    id: uuid.UUID
+    
