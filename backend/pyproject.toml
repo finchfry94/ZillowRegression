@@ -24,6 +24,8 @@ dependencies = [
     "redis>=5.2.1",
     "celery[redis]>=5.4.0",
     "flower>=2.0.1",
+    "bs4>=0.0.2",
+    "selenium>=4.30.0",
 ]
 
 [tool.uv]
