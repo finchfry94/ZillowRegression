@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.api.routes import items, login, private, users, utils, properties
+from app.api.routes import items, login, private, users, utils, properties, tasks
 from app.core.config import settings
 
 api_router = APIRouter()
@@ -9,7 +9,7 @@ api_router.include_router(users.router)
 api_router.include_router(utils.router)
 api_router.include_router(items.router)
 api_router.include_router(properties.router)  # Include the properties router
-
+api_router.include_router(tasks.router)  # Include the tasks router
 
 if settings.ENVIRONMENT == "local":
     api_router.include_router(private.router)

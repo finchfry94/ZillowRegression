@@ -307,3 +307,11 @@ Backend API docs: `https://api.staging.fastapi-project.example.com/docs`
 Backend API base URL: `https://api.staging.fastapi-project.example.com`
 
 Adminer: `https://adminer.staging.fastapi-project.example.com`
+
+### Flower Monitoring
+
+Flower provides a web interface to monitor Celery tasks. Access it at:
+
+```
+http://localhost:5555
+```
