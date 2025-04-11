@@ -121,7 +121,8 @@ class PropertyBase(SQLModel):
     bedrooms: int | None = None  # Number of bedrooms
     bathrooms: float | None = None  # Number of bathrooms
     sqft: int | None = None  # Square footage of the property
-    lot_size: float | None = None  # Lot size in acres
+    lot_size: float | None = None  # Lot size
+    lot_size_unit: str | None = None  # Units for the lot size (e.g. acres, sqft)
     year_built: int | None = None  # Year the property was built
     list_price: float | None = None  # Listing price of the property
     high_school: str | None = None  # Name of the high school district

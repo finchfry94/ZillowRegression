@@ -29,6 +29,7 @@ def upgrade():
         sa.Column("bathrooms", sa.Float, nullable=True),
         sa.Column("sqft", sa.Integer, nullable=True),
         sa.Column("lot_size", sa.Float, nullable=True),
+        sa.Column("lot_size_unit", sa.String(length=10), nullable=True),
         sa.Column("year_built", sa.Integer, nullable=True),
         sa.Column("list_price", sa.Float, nullable=True),
         sa.Column("high_school", sa.String(length=255), nullable=True),

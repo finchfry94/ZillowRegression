@@ -9,7 +9,24 @@ from sqlalchemy import engine_from_config, pool
 config = context.config
 
 # Interpret the config file for Python logging.
-# This line sets up loggers basically.
+# This line sets up loggers basically.import os
+import sys
+from logging.config import fileConfig
+
+# Add the 'backend' directory (two levels up from alembic/env.py) to sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
+from sqlalchemy import engine_from_config
+from sqlalchemy import pool
+
+from alembic import context
+
+# This line should now work because the parent directory is in sys.path
+from app.models import SQLModel  # noqa
+from app.core.config import settings # Import your settings if needed for DB URL
+
+# --- rest of your env.py file ---
+
 fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
