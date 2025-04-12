@@ -37,16 +37,11 @@ class ZillowListingParserSelenium:
         if title_tag:
             title_text = title_tag.text
             address_from_title = title_text.split('|')[0].strip()
-            print(f"Address from title tag: {address_from_title}")
 
             # Extract address, city, state, and zip using regex
             match = re.match(r"(.+?),\s*([A-Za-z\s]+),\s*([A-Z]{2})\s*(\d{5})", address_from_title)
             if match:
                 address, city, state, zip_code = match.groups()
-                print(f"Address: {address}")
-                print(f"City: {city}")
-                print(f"State: {state}")
-                print(f"Zip Code: {zip_code}")
             return {
                 "address": address.strip(),
                 "city": city.strip(),
@@ -86,7 +81,7 @@ class ZillowListingParserSelenium:
 
             elif "bed" in text:
                 bed = int(extract_numbers(text))
-        return {"sqft": sqft, "bath": bath, "bed": bed}
+        return {"sqft": sqft, "bathrooms": bath, "bedrooms": bed}
             
     def get_at_a_glance(self):
         soup=self.soup
@@ -97,6 +92,8 @@ class ZillowListingParserSelenium:
                 year_built=int(re.findall(r'\d{4}',el.text)[0])
             print(el.text)
         print(year_built)
+
+        return {"year_built":year_built}
 
     def get_high_school(self):
         soup=self.soup
@@ -128,12 +125,13 @@ class ZillowListingParserSelenium:
         
         else:
             bed_bath_sqft = self.bed_bath_sqft()
+            print(bed_bath_sqft)
             price=self.get_price()
-            self.get_at_a_glance()
+            at_a_glance=self.get_at_a_glance()
             
             high_school=self.get_high_school()
 
-            details=bed_bath_sqft|price|address_dict|high_school
+            details=bed_bath_sqft|price|address_dict|high_school|at_a_glance
         self.driver.quit()
         return details
 

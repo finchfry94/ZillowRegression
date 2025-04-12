@@ -127,6 +127,13 @@ class PropertyBase(SQLModel):
     list_price: float | None = None  # Listing price of the property
     high_school: str | None = None  # Name of the high school district
 
+
+    def __str__(self):
+        attributes = ", ".join(f"{key}={value!r}" for key, value in self.model_dump().items())
+        return f"Property({attributes})"
+
+
+
 class PropertyCreate(PropertyBase):
     pass
 

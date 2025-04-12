@@ -23,6 +23,7 @@ def create_property(
     Create new property.
     """
     property = models.Property.model_validate(property_in)
+    print(property)
     db.add(property)
     db.commit()
     db.refresh(property)
@@ -42,7 +43,8 @@ def create_property_from_url(
 
     parser = ZillowListingParserSelenium(url)
     property_data = parser.parse()
-
+    print(property_data)
+    
 
     if not property_data:
         raise HTTPException(status_code=400, detail="Failed to parse property data from URL")
