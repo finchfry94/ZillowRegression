@@ -33,8 +33,18 @@ def upgrade():
         sa.Column("year_built", sa.Integer, nullable=True),
         sa.Column("list_price", sa.Float, nullable=True),
         sa.Column("high_school", sa.String(length=255), nullable=True),
+        sa.Column("url", sa.String(), nullable=True),
     )
 
+    op.create_table(
+        "price_history",
+        sa.Column("id", postgresql.UUID(as_uuid=True), primary_key=True, nullable=False),
+        sa.Column("date", sa.DateTime, nullable=False),
+        sa.Column("event", sa.String(length=255), nullable=False),
+        sa.Column("price", sa.Float, nullable=False),
+        sa.Column("property_id", postgresql.UUID(as_uuid=True), sa.ForeignKey("property.id", ondelete="CASCADE"), nullable=False),
+    )
 
 def downgrade():
+    op.drop_table("price_history")
     op.drop_table("property")

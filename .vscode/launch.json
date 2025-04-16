@@ -11,7 +11,7 @@
             "module": "uvicorn",
             "args": [
                 "app.main:app",
-                "--reload-dir", "${workspaceFolder}/backend/" // Specify the directory to watch
+                "--reload-dir", "${workspaceFolder}/backend/app" // Specify the directory to watch
             ],
             "cwd": "${workspaceFolder}/backend",
             "jinja": true,

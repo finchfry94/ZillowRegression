@@ -1,7 +1,8 @@
 import uuid
-
+import datetime as dt
 from pydantic import EmailStr
 from sqlmodel import Field, Relationship, SQLModel
+
 
 
 # Shared properties
@@ -126,6 +127,7 @@ class PropertyBase(SQLModel):
     year_built: int | None = None  # Year the property was built
     list_price: float | None = None  # Listing price of the property
     high_school: str | None = None  # Name of the high school district
+    url: str | None = None  # URL of the property listing
 
 
     def __str__(self):
@@ -141,6 +143,23 @@ class PropertyCreate(PropertyBase):
 class PropertyRead(PropertyBase):
     id: uuid.UUID
 
+    price_history: list["PriceHistory"] | None = None
+
 class Property(PropertyBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+
+    price_history: list["PriceHistory"] | None = Relationship(back_populates="property", sa_relationship_kwargs={"cascade": "all, delete-orphan"})
     
+
+class PriceHistoryBase(SQLModel):
+    date: dt.datetime 
+    event: str
+    price: float
+    property_id: uuid.UUID = Field(foreign_key="property.id", nullable=False)
+    
+
+class PriceHistory(PriceHistoryBase, table=True):
+    __tablename__="price_history"
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+
+    property: Property| None = Relationship(back_populates="price_history")
